@@ -1,0 +1,13 @@
+ansible web01 -m ansible.builtin.yum -a "name=httpd state=present" -i inventory --become
+- escalates the prividge level to yum install httpd
+
+ansible web01 -m ansible.builtin.yum -a "name=httpd state=absent" -i inventory --become
+- uninstalls httpd
+
+ansible websrvgrp -m ansible.builtin.service -a "name=httpd state=started enabled=yes" -i inventory --become
+- starts and enables the httpd service on the targets in the websrvgrp
+
+ansible websrvgrp -m ansible.builtin.copy -a "src=index.html dest=/var/www/index.html" -i inventory --become
+- copies file from local machine to targets in the websrvgrp
+
+
